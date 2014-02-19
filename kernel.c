@@ -106,6 +106,7 @@ void show_cmd_info(int argc, char *argv[]);
 void show_task_info(int argc, char *argv[]);
 void show_man_page(int argc, char *argv[]);
 void show_history(int argc, char *argv[]);
+void show_strlen_result(int argc, char *argv[]);
 
 /* Enumeration for command types. */
 enum {
@@ -115,6 +116,7 @@ enum {
 	CMD_HISTORY,
 	CMD_MAN,
 	CMD_PS,
+	CMD_TEST_STRLEN,
 	CMD_COUNT
 } CMD_TYPE;
 /* Structure for command handler. */
@@ -129,7 +131,8 @@ const hcmd_entry cmd_data[CMD_COUNT] = {
 	[CMD_HELP] = {.cmd = "help", .func = show_cmd_info, .description = "List all commands you can use."},
 	[CMD_HISTORY] = {.cmd = "history", .func = show_history, .description = "Show latest commands entered."}, 
 	[CMD_MAN] = {.cmd = "man", .func = show_man_page, .description = "Manual pager."},
-	[CMD_PS] = {.cmd = "ps", .func = show_task_info, .description = "List all the processes."}
+	[CMD_PS] = {.cmd = "ps", .func = show_task_info, .description = "List all the processes."},
+	[CMD_TEST_STRLEN]={.cmd = "test_strlen", .func = show_strlen_result, .description = "Check strlen()"}
 };
 
 /* Structure for environment variables. */
@@ -714,6 +717,16 @@ void show_cmd_info(int argc, char* argv[])
 		write(fdout, cmd_data[i].description, strlen(cmd_data[i].description) + 1);
 		write(fdout, next_line, 3);
 	}
+}
+
+//test strlen()
+void show_strlen_result(int argc, char* argv[])
+{
+	char str[10];
+	int length = strlen("hello");
+	itoa(length, str, 10);
+	write(fdout, str, 2);
+	write(fdout, next_line, 3);
 }
 
 //echo
