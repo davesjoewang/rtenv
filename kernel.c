@@ -50,6 +50,18 @@ size_t strlen(const char *s)
 	);
 }
 
+
+int portable_strlen(char *s)
+{
+	char *p=s;
+
+	while(*p!='\0')
+		p++;
+
+	return(p-s);
+} 
+
+
 void puts(char *s)
 {
 	while (*s) {
@@ -723,7 +735,7 @@ void show_cmd_info(int argc, char* argv[])
 void show_strlen_result(int argc, char* argv[])
 {
 	char str[10];
-	int length = strlen("hello");
+	int length = portable_strlen("hello");
 	itoa(length, str, 10);
 	write(fdout, str, 2);
 	write(fdout, next_line, 3);
