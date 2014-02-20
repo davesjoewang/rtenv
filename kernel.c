@@ -16,15 +16,14 @@ int strcmp(const char *s1, const char *s2)
 
 }
 
-int strncmp(const char *a, const char *b, size_t n)
+int strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t i;
+	size_t i=0;
 
-	for (i = 0; i < n; i++)
-		if (a[i] != b[i])
-			return a[i] - b[i];
+	while(*s1 && *s1 == *s2 && i<=n)
+		*s1++, *s2++, i++;
 
-	return 0;
+	return (*s1-*s2);
 }
 
 size_t  strlen(const char *s)
