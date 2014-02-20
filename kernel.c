@@ -61,6 +61,14 @@ int portable_strlen(char *s)
 	return(p-s);
 } 
 
+int portable_strcmp(char *a, char *b)
+{
+	if(*a != *b) 
+		return (*a - *b);
+
+	return 0;
+}
+
 
 void puts(char *s)
 {
@@ -735,8 +743,14 @@ void show_cmd_info(int argc, char* argv[])
 void show_strlen_result(int argc, char* argv[])
 {
 	char str[10];
-	int length = portable_strlen("hello");
-	itoa(length, str, 10);
+//	test two version of strlen()
+//	int length = portable_strlen("hello");
+//	int length = strlen("hello");
+//	itoa(length, str, 10);
+
+//	test two version of strcmp()
+//	itoa(strcmp('a','b'), str, 2);
+	itoa(portable_strcmp('a', 'b'), str, 2);
 	write(fdout, str, 2);
 	write(fdout, next_line, 3);
 }
