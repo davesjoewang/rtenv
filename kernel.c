@@ -7,23 +7,14 @@
 
 void *memcpy(void *dest, const void *src, size_t n);
 
-int strcmp(const char *a, const char *b) __attribute__ ((naked));
-int strcmp(const char *a, const char *b)
+int strcmp(const char *s1, const char *s2)
 {
-	asm(
-        "strcmp_lop:                \n"
-        "   ldrb    r2, [r0],#1     \n"
-        "   ldrb    r3, [r1],#1     \n"
-        "   cmp     r2, #1          \n"
-        "   it      hi              \n"
-        "   cmphi   r2, r3          \n"
-        "   beq     strcmp_lop      \n"
-	"   sub     r0, r2, r3      \n"
-        "   bx      lr              \n"
-	:::
-	);
-}
+	while(*s1 && *s1 == *s2)
+		*s1++,*s2++;
+	
+	return (*s1 - *s2);
 
+}
 
 int strncmp(const char *a, const char *b, size_t n)
 {
@@ -45,15 +36,6 @@ size_t  strlen(const char *s)
 
 	return(p-s);
 } 
-/*
-int strcmp(const char *a, const char *b)
-{
-//	if(*a != *b) 		return (*a - *b);
-	if(a[0]!=b[0])	return(a[0]-b[0]);
-
-	return 0;
-}
-*/
 
 void puts(char *s)
 {
