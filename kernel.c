@@ -24,6 +24,7 @@ int strcmp(const char *a, const char *b)
 	);
 }
 
+
 int strncmp(const char *a, const char *b, size_t n)
 {
 	size_t i;
@@ -34,7 +35,7 @@ int strncmp(const char *a, const char *b, size_t n)
 
 	return 0;
 }
-
+/*
 size_t strlen(const char *s) __attribute__ ((naked));
 size_t strlen(const char *s)
 {
@@ -49,9 +50,9 @@ size_t strlen(const char *s)
 		:::
 	);
 }
+*/
 
-
-int portable_strlen(char *s)
+size_t  strlen(const char *s)
 {
 	char *p=s;
 
@@ -60,15 +61,15 @@ int portable_strlen(char *s)
 
 	return(p-s);
 } 
-
-int portable_strcmp(char *a, char *b)
+/*
+int strcmp(const char *a, const char *b)
 {
-	if(*a != *b) 
-		return (*a - *b);
+//	if(*a != *b) 		return (*a - *b);
+	if(a[0]!=b[0])	return(a[0]-b[0]);
 
 	return 0;
 }
-
+*/
 
 void puts(char *s)
 {
@@ -750,7 +751,7 @@ void show_strlen_result(int argc, char* argv[])
 
 //	test two version of strcmp()
 //	itoa(strcmp('a','b'), str, 2);
-	itoa(portable_strcmp('a', 'b'), str, 2);
+	itoa(strcmp('a', 'b'), str, 2);
 	write(fdout, str, 2);
 	write(fdout, next_line, 3);
 }
