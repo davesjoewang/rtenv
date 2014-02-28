@@ -716,7 +716,7 @@ void show_strlen_result(int argc, char* argv[])
 
 //	test two version of strcmp()
 //	itoa(strcmp('a','b'), str, 2);
-	itoa(strcmp('a', 'b'), str, 2);
+	itoa(strncmp("ab", "abc", 3), str, 2);
 	write(fdout, str, 2);
 	write(fdout, next_line, 3);
 }
@@ -799,6 +799,7 @@ void first()
 	if (!fork()) setpriority(0, 0), serialin(USART2, USART2_IRQn);
 	if (!fork()) rs232_xmit_msg_task();
 	if (!fork()) setpriority(0, PRIORITY_DEFAULT - 10), serial_test_task();
+	if (!fork()) setpriority(0, PRIORITY_DEFAULT), queue_str_task1();
 
 	setpriority(0, PRIORITY_LIMIT);
 
