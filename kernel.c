@@ -18,13 +18,17 @@ int strcmp(const char *s1, const char *s2)
 
 int strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t i=0;
-
-	while(*s1 && *s1 == *s2 && i<n)
-		*s1++, *s2++, i++;
-
-	return (*s1-*s2);
+        if (n == 0)
+                return 0;
+        do {
+                if (*s1 != *s2++)
+                        return (*(unsigned char *) s1 - *(unsigned char *) --s2);
+                if (*s1++ == 0)
+                        break;
+        } while (--n != 0);
+        return 0;
 }
+
 
 size_t  strlen(const char *s)
 {
@@ -799,7 +803,6 @@ void first()
 	if (!fork()) setpriority(0, 0), serialin(USART2, USART2_IRQn);
 	if (!fork()) rs232_xmit_msg_task();
 	if (!fork()) setpriority(0, PRIORITY_DEFAULT - 10), serial_test_task();
-	if (!fork()) setpriority(0, PRIORITY_DEFAULT), queue_str_task1();
 
 	setpriority(0, PRIORITY_LIMIT);
 
